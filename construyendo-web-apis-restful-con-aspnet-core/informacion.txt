@@ -1,0 +1,795 @@
+ASP .NET core  (el "core" significa que es multiplataforma, la version sin "core" solo funciona en windows)
+	ASP (Active Server Page/Página del servidor activo)
+
+PARTES DE UNA PETICION HTTP.
+
+linea de peticion.
+	estructura: METODO-HTTP URL PROTOCOLO-HTTP
+	ejm: GET /api/autores HTTP/1.1
+
+cabecera de la peticion.  (son metadatos de la peticion). ejm:
+	Host
+	Cache-Control
+	...
+
+cuerpo de la peticion. (informacion a enviar al servidor)
+	
+
+Al hacer una peticion HTTP al servidor se obtiene una respuesta HTTP con caracteristicas parecidas
+	Linea de estatus. (estatus de la peticion, exitosa, error, u otro) ejm: "HTTP/1.1 200 OK"
+	Cabecera.
+	Cuerpo. (codigo html)
+
+=======================================================================================
+CATEGORIAS DE ESTATUS.
+	1xx Informacion
+	2xx Exitoso
+	3xx Redireccion
+	4xx Error del cliente
+	5xx Error del servidor
+
+
+*una SOLUCION es un conjunto de proyectos que estan relacionados entre si
+
+=======================================================================================
+//tipos de valor y tipos de referencia
+
+//tipo de valor: Es cuando la variable contiene la instancia del tipo
+int edad = 99;
+//edad = null;
+
+//tipo de referencia: es cuando la variable contiene una referencia a la instancia del tipo
+string nombre = "Juan";
+nombre = null;
+//if(nombre is not null)
+nombre.ToUpper();
+=======================================================================================
+
+*en la clase program se configuran servicios (antes de "var app") y middlewares (despues de "var app")
+
+middlewares es un conjunto de procesos que se ejecutan en cada peticion http
+
+*en este caso se crao la DB con c# por lo que se usó migrations
+	Add-migration [nombre]
+	Update-Database
+
+*cuando se envia o traen datos del propio programa a un tercero se le conoce como operacion IO (ejm: de mi api a una base de datos)
+
+=======================================================================================
+* CONTROLADORES
+	nomenclatura: Nombre + Controller   (ejm: AutoresController)
+	*normalmente se colocan en una carpeta llamada Controllers
+
+*se le dice ruta a los segmentos despue de un dominio
+*un controlador agrupa acciones o tambien llamados endpoints
+
+
+=======================================================================================
+*las reglas de ruteo son las que nos permiten mapear una URL con una accion
+
+ en una api "[Route("api/autores")]"  se le llama ruteo por atributo
+	*tambien se pueden colocar rutas en la calse "program.cs" pero solo es de MVC
+
+*en una ruta si se usa por ejm: "[HttpGet("/listado-de-autores")]" al colocar "/" ignora en route del ApiController
+*se pueden colocar varias rutas para una accion o endpoint
+*al usar [HttpGet("{id:int}")]  se le llama parametro de ruta, el ":int" es una restriccion
+* si no se quiere tener restricciones entonces no se deben colocar tipos de parametros
+
+=======================================================================================
+Tipos de datos de retorno
+
+*Tipo Especifico: se usa cuando se retorna un tipo de dato cualquiera  (ejemplo: "public async Task<IEnumerable<Autor>> Get()")
+*ActionResult<T>  (ejemplo: "public async Task<ActionResult<Autor>> Get(string nombre)" en ete caso o retorna un OK(que es un action result) o retorna el objeto(Autor) )
+*ActionResult o IActionResult (ejm: "public IActionResult Get(string? parametro1, string parametro2 = "valor por defecto")" con IActionResult solo puedes retornar ejmeplo un OK(que es un action result) )
+
+ActionResult = es una clase que representa todos los tipos de datos que se puede retornar desde una accion
+
+*usar public Task crearAutor() //el "Task" solo es para cuando el metodo no tiene un valor de return (ejemplo un update)
+ 
+*el Model Binding e una caracteristicas que permite mapear datos de una peticion http a parametros de una accion o endpoint
+
+
+=======================================================================================
+Existen validaciones por atributo(Data Annotation)(crear una clase para crear un atributo personalizado que haga 1 cosa)
+ y por modelo (atributo personalizado en la propia clase modelo agregando "IValidatableObject")
+ y a nivel de controlador
+
+*las validaciones por modelo solo se ejecutan posterior a las validaciones por atributo
+*la ventaja de la validacion por atributo es que puedo reutilizarla,
+ la ventaja de la validacion por modelo es que puedo usar todos los atributos del modelo
+
+*"ModelState.AddModelError" permite agregar al problem details los errores que se tengan para asi solo tener una estructura de retorno en caso de errores
+
+*los servicios se encargan de construir las dependencias de una clase
+
+
+=======================================================================================
+PRINCIPIO DE INVERSION DE DEPENDENCIAS
+*el principio establece que nuestras clases deben depender de abstracciones y no de tipos concretos
+*se usan abstraciones para poder hacer cambios en tiempo de ejecucion
+
+*el DBContext es un tipo concreto, pero en cierto sentido es ya una abstraccion de la base de datos que en este caso es sql server, pero EF Core no soporta todas las abses de datos por lo que se pueden hacer interfaces para por ejemplo si se quiere usar Excel u otro motor de base de datos que no soporte EF Core  esto para incrementar el nivel de flexibilidad del sitema
+
+*las abstracciones tambien facilitan las pruebas unitarias
+=======================================================================================
+TIEMPO DE VIDA DE SERVICIOS
+-Transient = la de menor tiempo de vida,se crea una instancia nueva del servicio cada vez que se solicite se utiliza cuando no hay estado compartido, es decir cuando la clase no tiene campos que queramos compartir entre instancias
+
+-Scoped = es cuando se crea una instancia unica por peticion http, es decir no importa cuantas veces se solicite el servicio siempre que sea del mismo contexto http se entrega la misma instancia (util para preservar estado dentro de una solicitud http)
+
+-Singleton = se crea una unica instancia del servicio durante la vida de la aplicacion , no importa cuantas veces se solicite el servicio, siempre se entregará la misma instancia aunque sea a usuarios distintos (util cuando queremos tener un estado global como por ejemplo como una capa de cache) (por ejemplo cuando se ejecuta una peticion http y se guarda en memoria alguna informacion y en una segunda peticion http diferente se puede recuperar o modificar esa informacion)
+
+=======================================================================================
+LOGGING o LOGGERS
+
+*me permite saber que está ocurriendo con la aplicacion mientras se ejecuta.
+*tiene 6 niveles: Trace,Debug,Information,Warning,Error,Critical
+*podemos decir a partir de qué nivel mostrar los mensajes de log
+
+*tambien se puede categorizar y colocar por ejemplo:
+	""BibliotecaAPI.Controllers.AutoresController": "Trace"," aqui  se coloco el namespace punto controlador para decirle que ese nivel de log se muestren solo para un controlador especifico
+
+=======================================================================================
+MIDDLEWARE
+*son funciones que se pueden ejecutar para procesar las solicitudes HTTP que recibe la aplicacion
+
+*una solicitud llega a nuestro webapi y pasa lo que se conoce como un pipeline de solicitudes HTTP.
+*un pipe (tuberia) es una cadena de procesos conectados de tal forma que la salida de cada elemento de la cadena es la entrada del proximo
+
+*llamamos middleware a cada proceso del pipeline
+ - ejm : el middleware de autorizacion
+
+-modo de ejecucion: peticion(request) -> middleware 1 -> 2 -> 3
+	en la fase de respuesta se ejecutan de atras hacia adelante middleware 3 -> 2 -> 1 -> respuesta (response)
+
+*en los middlewares ocurre algo llamado "cortocircuito" y evitar que siga ejecutandose el proceso
+
+
+=======================================================================================
+DTO (object tranfer data(objetos de transferencia de datos) )
+
+
+
+=======================================================================================
+Configuraciones
+
+las configuraciones son datos externos de nuestra aplicacion que ayudan a nuestra aplicacion a funcionar correctamente
+
+ejm: connection string  (es lo que no se quiere tener en el codigo sino en fuentes externas)
+
+*se utilizan Proveedores de configuraciones a traves del IConfiguration
+ para consumir fuentes externads de datos
+
+un proveedor de configuracion son una simple coleccion de llaves y valores
+
+=======================================================================================
+APPSETTINGS
+
+-por defecto se configura una opcion de reaload on change
+
+=======================================================================================
+VARIABLES DE AMBIENTE
+
+sirve peara definir ambientes como desarrollo o produccion y se usa LaunchSettings.json u tro como github,azure,etc.
+
+ORDEN DE DECLARACION DE LOS PROVEEDORES DE Configuraciones *
+-por defecto los proveedores que se configuran primero tienen menor precedencia o prioridad, por tanto los que se econfiguran despues tienen mayor precedencia por lo que sobreescriben a los anteriores.
+
+*orden:
+appsettings
+appsettings.development
+
+-si esta en desarrollo
+	-userSecrets
+	-enviromentVariables (del launchSettings)
+	-addCommandLineConfig (agregar configuracion de linea de comandos) (es otroi proveedor de configuracion)
+	
+*y asi todos los proveedores que se configuren despues o posteriro a "CreateBuilder" en program.cs será el ultimo y por lo tanto sobreescribirán a los anteriores
+
+-lo que se sobreescribe son las llaves o variables con igual nombre ***
+
+
+
+=======================================================================================
+USER SECRETS
+-es ocmo un appSettings secreto para usar solo en el proyecto y esta garantizado a no estar presente en la aplicacion y evitar correr riesgos de revelar datos sencibles por ejm al subir el codigo a github.
+
+modo de uso:
+en visual studio: clic derecho al proyecto y administrar secretos de usuario
+en dotnet CLI: dotnet user-secrets init
+
+=======================================================================================
+CONFIGURACION DE LIENA DE COMANDO (CommandLineConfig)
+
+-obreescrito todos los proveeedores porque se crea al final
+
+modo de uso (terminal):
+ dotnet run -- "quien_soy=linea de comandos"
+
+=======================================================================================
+OTRO PROVEEDOR: PROVEEDOR EN MEMORIA
+
+-sirve cuando tenemos valores que queremos centralizar en una prte del codigo de la aplicacion
+
+
+=======================================================================================
+PATRON DE OPCIONES
+
+-se trata de tener un mecanismo fuertemente tipado para obtener valores de un proveedor de configuracion
+
+-lo que hace es tomar la data y la guarda en cache por lo que si se modifican los datos se tendria que  volver a correr la aplicacacion y para cambiar eso se debe usar IOptionSnapshot
+
+-si los valores no se estan cambiando a cada rato lo mejor es usar solo IOptions
+
+=======================================================================================
+SEGUNDO TIPO DE OPCION - IOptionsSnapshot
+
+-en cada peticion http van a ser llenadas los valores de las opciones
+eso provoca que sea un poquito mas lento debido a que actauliza los valores
+
+modo de uso:
+normalmente se usa IOptions para usar este patron pero se debe cambiar por IOptionsSnapshot
+y con ese cambio es suficiente
+
+funciona bien para controladores y servicios scope porque actúa como un scope, ya que se actualiza en cda peticion
+
+-si los valores no se estan cambiando a cada rato lo mejor es usar solo IOptions
+
+
+=======================================================================================
+TERCER TIPO DE OPCION - IOptionsMonitor
+
+
+-permite ejecutar una funcion c# al momento del cambio de los valores en un proveedor de configuracion
+
+-usado tipicamente dentro de servicios singleton  
+
+ejmp: cuando se quieren guardar una tarifa de un servicio pero por temas de velocidad no se puede guardar en una base de datos por lo que quisieramos mejor guardarlo en un lugar de rapido acceso en un json como el appsettings.json
+
+
+
+=======================================================================================
+CONSIDERACIONES DE SEGURIDAD
+
+-Nunca se debe permitir que algunas inofrmaciones vivan en un archivo, el cual sea accesible por cualquier miembro del equipo por ejm: appSettings.json guardar el connection string, usar variables de ambiente por ejmplo a nivel de Azure
+
+-user secrets es una opcion para el ambiente de desarrollo
+
+-pero para configuraciones menos sencibles como config de logger o cosas parecidas, si se puede usar appsettings.json
+
+
+=======================================================================================
+Autenticacion y Autorizacion
+
+-se trata de que un usuario muestre creenciales para verificar su identidad
+
+-Una opcion es "Identity"
+
+-luego de validar, se devuelve un json web token (JWT) se dice que es seguro porque está firmado con una llave secreta, contine claims que contine informacion del usuario
+-para usar endpoints debe enviar el jwt para validarse como autenticado
+
+-un token se divide en 3 partes:
+cabecera.
+datos. (tambien llamado payload)
+firma.
+
+-Autorizacion se refiere a lo que un usuario tiene permitido hacer
+
+-Al usar una API cuando enviamos un JSON web Token el cache no funciona porque se entiende que si una persona envia el jwt es porque se entiende que va a ahaber una data personalizada
+
+
+=======================================================================================
+Para proteger los Controladores se usa El Atributo Authorize y AllowAnonymous
+
+[Authorize] = indicamos que solamentes personas con ciertas credenciales pueden consumir una accion o endpoint
+
+se pueden proteger a nivel de accion o endpoint, pero tambien se pueden proteger a nivel de controlador
+
+[AllowAnonymous] = permite hacer excepciones, por ejm: si un controlador tiene Authorize, a un endpoint de ese controlador se le puede colocar AllowAnonymous para hacer excepcion a ese controlador especifica
+
+
+
+=======================================================================================
+En una aplicacion de Web API no se hace deslogue
+
+-esto porque lo que se usa el un token jwt, por lo que apra hacer el deslogue el cliente debe eliminar el jwt y listo, pero desde la api no es necesario
+
+
+=======================================================================================
+CORS(Cross-origin Resource Sharing/intercambio de recursos de origen cruzado)  (Politica de Seguridad del Mismo Origen)
+
+-la politica se aplica a nivel de origen y no solo del dominio (origen es la combinacion del URI + nombre del host + numero de puerto)
+
+-se puede habilitar el intercambio de recursos de origen cruzado (CORS) paera permitir peticio9nes desde otros origenes hacia nuestro web API
+
+-por policica de seguridad no se permite que un navegador acceda a las cabeceras, a menos que se configure en el build.service con "WithExposedHeaders([cabeceras A LAS QUE SE TENDRA ACCESO])"  
+
+
+
+=======================================================================================
+ENCRIPTACION
+
+-es un proceso que le aplicamos a un mensaje para codificarlo de tal modo que solo personas autorizadas puedan conocer el mensaje original
+
+-al mensaje original le llamamos "texto plano"
+
+-al resultado del proceso de encriptacion le llamamos "texto cifrado"
+
+--LA ENCRIPTACION BUSCA PROTEGER EL TEXTO PLANO*
+--UN algoritmo de encriptacion es tan bueno como el nivel de dificultad que le provoque a un usuario no autorizado recobrar el texto plano a partir del texto cifrado*
+
+-para encriptar en el mundo real solemnos usar una llave secreta (la que nos permite recobrar el texto palano a partir del texto cifrado)
+-esta llave debe estar protegida colocandola en una variable de ambiente o en algun otro lugar seguro.
+
+-ASP .NET CORE tiene un servicio de proteccion de datos
+	-IDataProtectorProvider (crea el IDataProtector) y IDataProtector (se encaga de encriptar y desencriptar los mensajes)
+
+
+
+=======================================================================================
+LLAVES DE PROTECCION DE DATOS
+
+-por defecto, el FRAMEWORK va a manejar las llaves por ti
+
+-si el proyecot es desplegado en azure app service: por defecto se guarda en un directorio (una carpeta en el servidor)
+
+-slots diferentes = Llaves diferentes (las distintas versiones de la aplicaciones van a tener llaves distintas, ejm: 2 intancias de la aplicaicon en 2 servidores distintos pues tendran llaves distintas) (pede dar sitiaciones inesperadas, como lo que se encripte en 1 slot no se pude desencriptar en el otro, LA SOLUCION ES COLOCAR LAS LLAVES EN UN LUGAR EXTERNO COMO UN AZURE BLOB STORAGE)
+
+--en caso del IIS = por defecto las llaves seran persistidas en el registro HKLM, 
+
+*Por defecto el framework verifica en donde se encuentra la aplicacion y trata de buscar la mejor manera de guardar las llaves *
+
+
+=======================================================================================
+HASHES
+
+- una funcion hash es un algoritmo el cual transforam un mensaje de tal manera que es virtualmente imposible de descifrar revirtiendo el proceso.
+- una razon para utilizar una funcion hash es para verificar contraseñas
+-comparamos hashes, no textos planos
+
+-al trabajar con hashes se puede considerar usar "sales" una sal es un valor aleatorio que se anexa al texto plano al cual le queremos  aplicar la funcion hash (esto protege nuestrs datos de ciertos ataques de diccionario)
+
+-el framework se puede utilizar la libreria Pbkdf2
+
+-si se guarda un hash, se debe guardar su sal tambien  (no hay problema en gaurdar la sal en texto plano en la base de datos ya que solo es par hacerdificil los ataques de diccionario)
+
+
+=======================================================================================
+CACHE  (outputcache)
+
+-el cache nos permite tener datos en un lugar de rapido acceso
+-nuestra estrategia de cache se basa en colocar en memoria los datos que deseamois guardar en cache
+-dos desventajas:
+	-reiniciar servidor
+	-varias instancias de la app
+
+-el cache "[OutputCache]" es usado solo para los get
+
+
+=======================================================================================
+Cache distribuido
+
+-es una capa de cache compartida por varias aplicaciones posiblemente en varios servidores
+
+REDIS
+	-es una tecnologia de codigo abierto que permite guardar datos en memoria
+
+-se utiliza REDIS para implementar una estrategia de cache distribuido
+	OPCIONES
+	-redis en nuestra maquina
+	-redis en la nube (como por ejm: azure cache for redis)
+
+REDIS INSIDE (al instalar) es un cliente que nos permite iteractuar con la DB de REDIS
+ "Microsoft.Extensions.Caching.StackExchangeRedis" y "Microsoft.AspNetCore.OutputCaching.StackExchangeRedis" nombres de paquetes para instalar redis
+
+=======================================================================================
+Filtros
+
+-los filtros nos ayudan a correr codigo en determinados momentos del ciclo de vida del procesamiento de una peticion http.
+
+-son utiles para evitar repetir codigo
+
+-Fitro de autorizacion (filtro mas usado)
+
+Tipos de filtro:
+	-Filtros de autorizacion (son los que determinan si un usuario puede consumir una accion o endpoint en especifico)
+	-Filtros de recursos (se ejecutan despues de la etapa de autorizacion, usados para validaciones generales o implementar una capa de cache personalizada)
+	-Filtros de accion (se eejcutan justos antes y justo despues de la ejecucion de una accion, se pueden usar para manipular los argumentos enviados a una accion o a la infromacion retornada por los mismos)
+	-Filtros de excepcion (se ejecutan en excepciones no atrapadas por los try catch, y durante binding del modelo )
+	-Filtros de resultados (se ejecutan antes y despues de la ejecucion de un AccionResult)	
+	
+	
+-la idea es que estos filtros ademas puedn detener la tuberia de filtros de tal modo que ni los demas filtros ni la accion del controlador se ejecuten
+
+LUGARES DONDE SE PUEDEN APLICAR Filtros
+-se puede aplicar filtros a nivel de acciones (es el ams simple, se ejecuta antes o despues de la creacion de una accion)
+-tambien se pueden colocar a nivel de controlador (de tal modo que aplique a todas las acciones de un controlador, se colocan como atributos )
+-tambien se pueden usar filtros globales a nivel de todo el web api (de modo que los filtros aplicque a todas o a todo el controlador)
+
+-para crear un filtro se crea una clase la cual va a implementar las interfaces ActionFilter o IAsyncActionFilter
+
+-si se usan filtros globales en program.cs se debe deshabilitar el cache porque si el cache está activo no se ejecuta la accion y si no se ejecuta laccion tampoco el filtro de accion *
+
+
+
+=======================================================================================
+Versionando el Web API
+
+-actualizar el web API es facil, actualizar los clientes no siempre es facil
+-versionar es hacer versiones de tu aplicacion
+-el cliente indica qué versión del web API quiere utilizar
+-El ciente puede indicar esto por URL (el mas comun), query string, cabecera HTTP,etc.
+	-ejm por URL: api/v1/libros
+				  api/v2/libros
+
+- No todo cambio implica una nueva version (ejm: mapear manualmente y pasar a automapper)*
+	(otro ejm: si se agrega un nuevo campo obligatorio para crear una entidad esto si debe ir en una nueva version porque es un cambio que modficia el codigo del cliente)
+
+
+
+
+=======================================================================================
+HATEOAS(Hipermedia como motor del estado de la aplicacion) /*pronunciacion: heit-os */
+
+-es una restriccion de REST que sirve para ayudar a los clientes del webAPi a navegar por los recursoss y saber que son capaces de hacer. ejm: indicar endoints para el recursos junto con metodos http que el usaurio pueda realizar sobre los mismos.
+
+-La idea es que las respuestas del web API van a contener informacion que representan las distintas acciones que el cliente pueda realizar, asi de un endpoint devolvemos el listado de autores, entonces cada autor va a tener un link para poder hacer un http get a dicho autor en especifico
+
+
+=======================================================================================
+PRUEBA
+
+-Una prueba es un ensayo o experimento que se hace de algo, para saber el resultado de un conjunto de acciones
+
+-Probar el software es usarlo para ver que funcione
+
+
+=======================================================================================
+Pruebas Automaticas
+
+-Una prueba automaticaes un software que prueba nuestro software
+
+-Una de las principales ventajas de las pruebas automaticas es que ellas prueban todo lo que le digamos que prueben, todas las veces que queramos
+
+Cualidades de una Buena Prueba Automatica:
+	-Razonablemente consistente = la idea es que el resultado variará solo cuando el software cambie, es decir  corremos una prueba y es exitosa y sin hacer cambios en la prueba la segunda preuba debe ser exitosa
+
+	-No depende de otra prueba (las pruebas deben ser independientes, nunca debe ser el caso de que para que la prueba B funciene debe ser el caso de la prueba A)
+
+	-No realiza cambios Externos = no debe realizar cambios en el sistema, debe probar y dejar las cosas como estaba, en algunos casos si se acepta cierta flexibilidad   
+
+-tipicamente una prueb automatica es una funcion la cual preuba alguna parte de la aplicacion
+-POR EJEMPLO: un software de ventas, una prueba podria ser la parte de la aplicaicon que crea un producto
+
+-A un conjunto de Pruebas Automaticas se le llama Suite de Pruebas
+
+-Una Prueba Automatica suele dividiarse en 3 partes o etapas:
+ -Preparar (el ambiente para desarrollar la prueba, ejem: generar la data o objetos de prueba, entre otros),
+ -Probar (ejecutamos la funcionalidad del software a probar)
+ -Verificar (nos aseguramos que obtuvimos el resultado esperado)
+
+Tipos de Pruebas:
+	-Pruebas Unitarias
+	-Pruebas de Integracion
+	-Pruebas de Extremo a Extremo
+
+
+=======================================================================================
+Pruebas Unitarias
+
+-Una prueba unitaria se encarga de probar una unidad de trabajo
+
+-caracteristica:
+	-intentan probar una pequeña y aislada parte del software sin importarle las dependencias externas 
+
+-son bastante rapidas
+
+-una prueba unitaria tiende a probar una funcion de una clase (y es normar ver varias prubas unitarias las cuales verifican distinfos funcionamientos de una funcion)
+
+
+* Por convencion el nombre de una clase de prueba es igual al nombre de la clase a probar terminado en "test o  Pruebas"
+* y para el nombre de los metodos dentro de la clase la convencion debe ser [NombreMetodo]_[loQueSeQuiereRetorne]_[bajoQueCondicionDebeOcurrir] (ejemplo : IsValid_RetornaExistoso_SiValueEsVacio)
+
+-por convencion, tengo que probar cada uno de los escenarios que se encuentran en el metodo para así probar que funciona correctamente
+
+-una prueba se divide en 3 etapas: prepacion,prueba y verificacion
+
+-se usa la clase auxiliar "Assert" para realizar las verificaciones
+
+-El atribulo "DataRow" puedo parametrizar algunos valores de mi prueba automatica para asi poder ejecutar la misma prueba pero con distintos valores
+
+=======================================================================================
+PRobando EF Core (esto en pruebas)
+
+-Opcion 1: No utilizar EF Core en nuestros controladores sino utilizar una interfaz (de esta manera se puede concentar en probar el codigo de las acciones sin tocar Entity Framework necesariamente)
+
+-Opcion 2: utilizar un proveedor en memoria (que nos permite tener algo asi como una base de datos en memoria lo que es bastante rapido y por lo tanto nos eprmitirá hacer pruebas que involucren a EF Core)
+
+-Ninguna de las dos opciones es necesariamente mejor que la otra (es un tema de preferencia)
+
+
+(en este proyecto se usó la opcion 2, instalando "Microsoft.EntityFrameworkCore.InMemory")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
+  "email": "ever@gmail.com",
+  "password": "Zxcvbnm,78721182"
+}
+ever:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV2ZXJAZ21haWwuY29tIiwibG8gcXVlIHlvIHF1aWVyYSI6ImN1YWxxdWllciB2YWxvciIsImV4cCI6MTgxMTE4MzczNn0._1h_HYUjKWJsTbCuX-jYepPrLcA6IEfEjX50oW8u1MQ
+
+ever (admin):eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImV2ZXJAZ21haWwuY29tIiwibG8gcXVlIHlvIHF1aWVyYSI6ImN1YWxxdWllciB2YWxvciIsImVzQWRtaW4iOiJ0cnVlIiwiZXhwIjoxODExNTU3MTI5fQ.6mnFvHl8RRyV6F5-WDPUSKdibqziswxE590Sk8MkaMA
+
+
+
+claudia:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNsYXVkaWFAZ21haWwuY29tIiwibG8gcXVlIHlvIHF1aWVyYSI6ImN1YWxxdWllciB2YWxvciIsImV4cCI6MTgxMTM4NTUzNn0.pjJXcvN4JmEbaKM4O5BzaXXs16NvQe9fSmI17aiz7Uk
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

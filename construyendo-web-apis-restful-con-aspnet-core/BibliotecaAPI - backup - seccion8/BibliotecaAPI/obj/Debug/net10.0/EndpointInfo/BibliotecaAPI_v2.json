@@ -1,0 +1,2053 @@
+{
+  "openapi": "3.0.4",
+  "info": {
+    "title": "Biblioteca API",
+    "description": "Este es un web api para trabajar con datos de autores y libros",
+    "contact": {
+      "name": "Ever Castellon",
+      "url": "https://ever.com",
+      "email": "ever@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/license/mit/"
+    },
+    "version": "v2"
+  },
+  "paths": {
+    "/api/v2/autores": {
+      "get": {
+        "tags": [
+          "Autores"
+        ],
+        "parameters": [
+          {
+            "name": "Pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "RecordsPorPagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AutorDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AutorDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AutorDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Autores"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutorCreacionDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutorCreacionDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutorCreacionDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutorCreacionDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/autores/{id}": {
+      "get": {
+        "tags": [
+          "Autores"
+        ],
+        "summary": "Obtiene un autor por su id",
+        "description": "Este endpoint permite obtener un autor por su id, incluyendo sus libros",
+        "operationId": "ObtenerAutorV2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El Id del Autor",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "description": "El Id del Autor",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "incluirLibros",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutorConLibrosDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutorConLibrosDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutorConLibrosDTO"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Autores"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Apellidos",
+                  "Nombres"
+                ],
+                "type": "object",
+                "properties": {
+                  "Foto": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Nombres": {
+                    "maxLength": 150,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "Apellidos": {
+                    "maxLength": 150,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "identificacion": {
+                    "maxLength": 20,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "Libros": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/LibroCreacionDTO"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "Foto": {
+                  "style": "form"
+                },
+                "Nombres": {
+                  "style": "form"
+                },
+                "Apellidos": {
+                  "style": "form"
+                },
+                "identificacion": {
+                  "style": "form"
+                },
+                "Libros": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Autores"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Autores"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/autores/{nombre}": {
+      "get": {
+        "tags": [
+          "Autores"
+        ],
+        "parameters": [
+          {
+            "name": "nombre",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^[A-Za-z]*$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Autor"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Autor"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Autor"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/autores/filtrar": {
+      "get": {
+        "tags": [
+          "Autores"
+        ],
+        "parameters": [
+          {
+            "name": "Pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "RecordsPorPagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PaginacionDTO.Pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PaginacionDTO.RecordsPorPagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Nombres",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Apellidos",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "TieneFoto",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "TieneLibros",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "TituloLibro",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "IncluirLibros",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "CampoOrdenar",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "OrdenAascendente",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v2/autores/contenedor-foto": {
+      "post": {
+        "tags": [
+          "Autores"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "Apellidos",
+                  "Nombres"
+                ],
+                "type": "object",
+                "properties": {
+                  "Foto": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "Nombres": {
+                    "maxLength": 150,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "Apellidos": {
+                    "maxLength": 150,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "identificacion": {
+                    "maxLength": 20,
+                    "minLength": 0,
+                    "type": "string"
+                  },
+                  "Libros": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/LibroCreacionDTO"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "Foto": {
+                  "style": "form"
+                },
+                "Nombres": {
+                  "style": "form"
+                },
+                "Apellidos": {
+                  "style": "form"
+                },
+                "identificacion": {
+                  "style": "form"
+                },
+                "Libros": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/autores-coleccion/{ids}": {
+      "get": {
+        "tags": [
+          "AutoresColeccion"
+        ],
+        "operationId": "ObtenerAutoresPorIdsV2",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AutorConLibrosDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AutorConLibrosDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AutorConLibrosDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/autores-coleccion": {
+      "post": {
+        "tags": [
+          "AutoresColeccion"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/AutorCreacionDTO"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/AutorCreacionDTO"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/AutorCreacionDTO"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/AutorCreacionDTO"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/libros/{libroId}/comentarios": {
+      "get": {
+        "tags": [
+          "Comentarios"
+        ],
+        "parameters": [
+          {
+            "name": "libroId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComentarioDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComentarioDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ComentarioDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Comentarios"
+        ],
+        "parameters": [
+          {
+            "name": "libroId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComentarioCreacionDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComentarioCreacionDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComentarioCreacionDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComentarioCreacionDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/libros/{libroId}/comentarios/{id}": {
+      "get": {
+        "tags": [
+          "Comentarios"
+        ],
+        "operationId": "ObtenerComentarioV2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "libroId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComentarioDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComentarioDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComentarioDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Comentarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "libroId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Operation"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Comentarios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "libroId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/libros": {
+      "get": {
+        "tags": [
+          "Libros"
+        ],
+        "parameters": [
+          {
+            "name": "Pagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "RecordsPorPagina",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LibroDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LibroDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LibroDTO"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Libros"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/libros/{id}": {
+      "get": {
+        "tags": [
+          "Libros"
+        ],
+        "operationId": "ObtenerLibroV2",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LibroConAutoresDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LibroConAutoresDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LibroConAutoresDTO"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Libros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LibroCreacionDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Libros"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/usuarios": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuarioDTO"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuarioDTO"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UsuarioDTO"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarUsuarioDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActualizarUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/usuarios/registro": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/usuarios/login": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CredencialesUsuarioDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/usuarios/renovar-token": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RespuestaAutenticacionDTO"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/usuarios/hacer-admin": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/api/v2/usuarios/remover-admin": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EditarClaimDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ActualizarUsuarioDTO": {
+        "type": "object",
+        "properties": {
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Autor": {
+        "required": [
+          "apellidos",
+          "nombres"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombres": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "apellidos": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "identificacion": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "foto": {
+            "type": "string",
+            "nullable": true
+          },
+          "libros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutorLibro"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutorConLibrosDTO": {
+        "required": [
+          "nameCompleto"
+        ],
+        "type": "object",
+        "properties": {
+          "enlaces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DatosHATEOASDTO"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nameCompleto": {
+            "type": "string",
+            "nullable": true
+          },
+          "foto": {
+            "type": "string",
+            "nullable": true
+          },
+          "libros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LibroDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutorCreacionDTO": {
+        "required": [
+          "apellidos",
+          "nombres"
+        ],
+        "type": "object",
+        "properties": {
+          "nombres": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "apellidos": {
+            "maxLength": 150,
+            "minLength": 0,
+            "type": "string"
+          },
+          "identificacion": {
+            "maxLength": 20,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "libros": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LibroCreacionDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutorDTO": {
+        "required": [
+          "nameCompleto"
+        ],
+        "type": "object",
+        "properties": {
+          "enlaces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DatosHATEOASDTO"
+            },
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nameCompleto": {
+            "type": "string",
+            "nullable": true
+          },
+          "foto": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AutorLibro": {
+        "type": "object",
+        "properties": {
+          "autorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "libroId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "orden": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "autor": {
+            "$ref": "#/components/schemas/Autor"
+          },
+          "libro": {
+            "$ref": "#/components/schemas/Libro"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Comentario": {
+        "required": [
+          "cuerpo",
+          "usuarioId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "cuerpo": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "fechaPublicacion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "libroId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "libro": {
+            "$ref": "#/components/schemas/Libro"
+          },
+          "usuarioId": {
+            "type": "string",
+            "nullable": true
+          },
+          "estaBorrado": {
+            "type": "boolean"
+          },
+          "usuario": {
+            "$ref": "#/components/schemas/Usuario"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ComentarioCreacionDTO": {
+        "required": [
+          "cuerpo"
+        ],
+        "type": "object",
+        "properties": {
+          "cuerpo": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ComentarioDTO": {
+        "required": [
+          "cuerpo",
+          "usuarioEmail",
+          "usuarioId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "cuerpo": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaPublicacion": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "usuarioId": {
+            "type": "string",
+            "nullable": true
+          },
+          "usuarioEmail": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CredencialesUsuarioDTO": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          },
+          "password": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DatosHATEOASDTO": {
+        "type": "object",
+        "properties": {
+          "enlace": {
+            "type": "string",
+            "nullable": true
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "metodo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditarClaimDTO": {
+        "required": [
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "minLength": 1,
+            "type": "string",
+            "format": "email"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Libro": {
+        "required": [
+          "titulo"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titulo": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          },
+          "autores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutorLibro"
+            },
+            "nullable": true
+          },
+          "comentarios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Comentario"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LibroConAutoresDTO": {
+        "required": [
+          "titulo"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titulo": {
+            "type": "string",
+            "nullable": true
+          },
+          "autores": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AutorDTO"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LibroCreacionDTO": {
+        "required": [
+          "titulo"
+        ],
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "maxLength": 250,
+            "minLength": 0,
+            "type": "string"
+          },
+          "autoresIds": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LibroDTO": {
+        "required": [
+          "titulo"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "titulo": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Operation": {
+        "type": "object",
+        "properties": {
+          "operationType": {
+            "$ref": "#/components/schemas/OperationType"
+          },
+          "path": {
+            "type": "string",
+            "nullable": true
+          },
+          "op": {
+            "type": "string",
+            "nullable": true
+          },
+          "from": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OperationType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "RespuestaAutenticacionDTO": {
+        "required": [
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "expiracion": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Usuario": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "normalizedUserName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "normalizedEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailConfirmed": {
+            "type": "boolean"
+          },
+          "passwordHash": {
+            "type": "string",
+            "nullable": true
+          },
+          "securityStamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "concurrencyStamp": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "phoneNumberConfirmed": {
+            "type": "boolean"
+          },
+          "twoFactorEnabled": {
+            "type": "boolean"
+          },
+          "lockoutEnd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lockoutEnabled": {
+            "type": "boolean"
+          },
+          "accessFailedCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UsuarioDTO": {
+        "required": [
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaNacimiento": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "in": "header"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Autores"
+    },
+    {
+      "name": "AutoresColeccion"
+    },
+    {
+      "name": "Comentarios"
+    },
+    {
+      "name": "Libros"
+    },
+    {
+      "name": "Usuarios"
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\controllers\\v1\\autorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\controllers\\v1\\autorescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\utilidades\\v1\\hateoasautoresattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\utilidades\\v1\\hateoasautoresattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\servicios\\v1\\generadorenlaces.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\servicios\\v1\\generadorenlaces.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\utilidades\\v1\\hateoasautorattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\utilidades\\v1\\hateoasautorattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\dtos\\autordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\dtos\\autordto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Program.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Program.cs*",
+              "RelativeToolTip": "BibliotecaAPI\\Program.cs*",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAFMAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T17:00:08.435Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "HATEOASAutorAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Utilidades\\V1\\HATEOASAutorAttribute.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Utilidades\\V1\\HATEOASAutorAttribute.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Utilidades\\V1\\HATEOASAutorAttribute.cs",
+              "RelativeToolTip": "BibliotecaAPI\\Utilidades\\V1\\HATEOASAutorAttribute.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAowBsAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T16:54:23.61Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "HATEOASAutoresAttribute.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Utilidades\\V1\\HATEOASAutoresAttribute.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Utilidades\\V1\\HATEOASAutoresAttribute.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Utilidades\\V1\\HATEOASAutoresAttribute.cs*",
+              "RelativeToolTip": "BibliotecaAPI\\Utilidades\\V1\\HATEOASAutoresAttribute.cs*",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowBwAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T16:46:36.516Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GeneradorEnlaces.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Servicios\\V1\\GeneradorEnlaces.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Servicios\\V1\\GeneradorEnlaces.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Servicios\\V1\\GeneradorEnlaces.cs*",
+              "RelativeToolTip": "BibliotecaAPI\\Servicios\\V1\\GeneradorEnlaces.cs*",
+              "ViewState": "AgIAABIAAAAAAAAAAAAqwBUAAABFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-26T00:58:19.556Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AutorDTO.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\DTOs\\AutorDTO.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\DTOs\\AutorDTO.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\DTOs\\AutorDTO.cs",
+              "RelativeToolTip": "BibliotecaAPI\\DTOs\\AutorDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-22T17:59:52.534Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AutoresController.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Controllers\\V1\\AutoresController.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Controllers\\V1\\AutoresController.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Controllers\\V1\\AutoresController.cs*",
+              "RelativeToolTip": "BibliotecaAPI\\Controllers\\V1\\AutoresController.cs*",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAAAEQAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-22T17:14:48.944Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
