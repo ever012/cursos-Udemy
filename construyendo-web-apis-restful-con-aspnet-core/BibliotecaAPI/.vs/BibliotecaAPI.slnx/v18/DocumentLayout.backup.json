@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\appsettings.development.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapi\\swagger\\convencionagrupaporversion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9F04E9A0-91CB-D2BF-BA57-FBA592C5D391}|BibliotecaAPI\\BibliotecaAPI.csproj|solutionrelative:bibliotecaapi\\swagger\\convencionagrupaporversion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7FEAC810-0CE1-438C-8A52-171C732F2725}|BibliotecaAPITests\\BibliotecaAPITests.csproj|c:\\users\\computadora\\desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\bibliotecaapi\\bibliotecaapitests\\pruebasunitarias\\controllers\\v1\\autorescontrollerpruebas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7FEAC810-0CE1-438C-8A52-171C732F2725}|BibliotecaAPITests\\BibliotecaAPITests.csproj|solutionrelative:bibliotecaapitests\\pruebasunitarias\\controllers\\v1\\autorescontrollerpruebas.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -35,6 +51,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "appsettings.Development.json",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\appsettings.Development.json",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\appsettings.Development.json",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\appsettings.Development.json",
+              "RelativeToolTip": "BibliotecaAPI\\appsettings.Development.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-09T03:25:42.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\appsettings.json",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\appsettings.json",
+              "RelativeToolTip": "BibliotecaAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-07-09T03:25:37.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Program.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Program.cs",
+              "RelativeToolTip": "BibliotecaAPI\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-09T03:25:35.652Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ConvencionAgrupaPorVersion.cs",
+              "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Swagger\\ConvencionAgrupaPorVersion.cs",
+              "RelativeDocumentMoniker": "BibliotecaAPI\\Swagger\\ConvencionAgrupaPorVersion.cs",
+              "ToolTip": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Swagger\\ConvencionAgrupaPorVersion.cs",
+              "RelativeToolTip": "BibliotecaAPI\\Swagger\\ConvencionAgrupaPorVersion.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-08T03:28:28.512Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "AutoresControllerPruebas.cs",
               "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPITests\\PruebasUnitarias\\Controllers\\V1\\AutoresControllerPruebas.cs",
               "RelativeDocumentMoniker": "BibliotecaAPITests\\PruebasUnitarias\\Controllers\\V1\\AutoresControllerPruebas.cs",
@@ -42,12 +110,11 @@
               "RelativeToolTip": "BibliotecaAPITests\\PruebasUnitarias\\Controllers\\V1\\AutoresControllerPruebas.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAqwDAAAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-06T18:20:44.396Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-06T18:20:44.396Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "AutoresController.cs",
               "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Controllers\\V1\\AutoresController.cs",
               "RelativeDocumentMoniker": "BibliotecaAPI\\Controllers\\V1\\AutoresController.cs",
@@ -59,7 +126,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "BasePruebas.cs",
               "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPITests\\Utilidades\\BasePruebas.cs",
               "RelativeDocumentMoniker": "BibliotecaAPITests\\Utilidades\\BasePruebas.cs",
@@ -71,7 +138,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "AutoresController.cs",
               "DocumentMoniker": "C:\\Users\\Computadora\\Desktop\\udemy\\construyendo-web-apis-restful-con-aspnet-core\\BibliotecaAPI\\BibliotecaAPI\\Controllers\\V2\\AutoresController.cs",
               "RelativeDocumentMoniker": "BibliotecaAPI\\Controllers\\V2\\AutoresController.cs",
